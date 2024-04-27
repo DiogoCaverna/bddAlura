@@ -16,8 +16,20 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
 
+  tests: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build-DB
+      run: docker-compose build
+
+    - name: Create-DB
+      run: docker-compose up -d
+  
+  build:
+    needs: tests
     runs-on: ubuntu-latest
 
     steps:
